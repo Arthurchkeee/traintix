@@ -1,0 +1,27 @@
+<div class="position-relative">
+  <div
+    class="card border-black position-absolute top-50 start-50 translate-middle-x"
+    style="max-width: 36rem"
+  >
+    <div class="card-header text-bg-warning border-black">Login</div>
+    <div class="card-body">
+      <form [formGroup]="loginForm">
+        <input
+          type="text"
+          class="form-control border-black mb-3"
+          placeholder="username"
+          aria-label="username"
+          formControlName="username"
+        />
+        <input
+          type="password"
+          class="form-control border-black mb-3"
+          placeholder="password"
+          aria-label="password"
+          formControlName="password"
+        />
+      </form>
+      <button class="btn btn-dark" (click)="onLogin()">Login</button>
+    </div>
+  </div>
+</div>
