@@ -1,1 +1,32 @@
-<p>stations works!</p>
+<div class="position-relative">
+  <div
+    class="card border-black position-absolute top-50 start-50 translate-middle-x">
+    <div class="card-header text-bg-warning border-black">Login</div>
+    <div class="card-body">
+      <form [formGroup]="createStationForm">
+        <input
+          type="text"
+          class="form-control border-black mb-3"
+          placeholder="city"
+          aria-label="city"
+          formControlName="city"
+        />
+        <input
+          type="number"
+          class="form-control border-black mb-3"
+          placeholder="latitude"
+          aria-label="latitude"
+          formControlName="latitude"
+        />
+        <input
+          type="number"
+          class="form-control border-black mb-3"
+          placeholder="longitude"
+          aria-label="longitude"
+          formControlName="longitude"
+        />
+      </form>
+      <button class="btn btn-dark" (click)="onCreate()">Create</button>
+    </div>
+  </div>
+</div>
