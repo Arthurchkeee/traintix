@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import {Station} from "../models/station.model";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class StationService {
         'Content-Type': 'application/json',
       }),
     };
-    return this.http.get(
+    return this.http.get<Station[]>(
       `http://localhost:8080/api/stations`,
       httpOptions
     );

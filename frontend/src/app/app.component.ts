@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 
 @Component({
@@ -8,7 +7,6 @@ import { HeaderComponent } from './components/header/header.component';
   standalone: true,
   imports: [
     RouterOutlet,
-    HttpClientModule,
     HeaderComponent
   ],
   templateUrl: './app.component.html',

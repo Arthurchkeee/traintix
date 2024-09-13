@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {StationService} from "../../services/station.service";
+import {Store} from "@ngrx/store";
+import {loadStations} from "../../store/actions/api.actions";
 
 @Component({
   selector: 'app-stations',
@@ -12,20 +14,15 @@ import {StationService} from "../../services/station.service";
 export class StationsComponent {
   protected createStationForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private service: StationService) {
+  constructor(private fb: FormBuilder, private service: StationService,private store:Store) {
     this.createStationForm = this.fb.nonNullable.group({
       city: ['', Validators.required],
       latitude: ['', Validators.required],
       longitude: ['', Validators.required],
     });
-    this.service.getStations().subscribe({
-      next: (response) => {
-        console.log(response);
-      },
-      error: (error) => {
-        console.error('Create station Error:', error);
-      },
-    });
+    this.store.dispatch(loadStations());
+    console.log('loadStations action dispatched');
+
   }
   onCreate(){
     if(this.createStationForm.valid){
