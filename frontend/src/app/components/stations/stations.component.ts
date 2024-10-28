@@ -3,31 +3,57 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {StationService} from "../../services/station.service";
 import {Store} from "@ngrx/store";
 import {loadStations} from "../../store/actions/api.actions";
+import {Select2Data, Select2Module } from 'ng-select2-component';
 
 @Component({
   selector: 'app-stations',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, Select2Module],
   templateUrl: './stations.component.html',
-  styleUrl: './stations.component.scss'
+  styleUrl: './stations.component.scss',
 })
 export class StationsComponent {
   protected createStationForm: FormGroup;
+  protected data: Select2Data = [
+    {
+      value: 'heliotrope',
+      label: 'Heliotrope',
+      data: { color: 'white', name: 'Heliotrope' },
+    },
+    {
+      value: 'hibiscus',
+      label: 'Hibiscus',
+      data: { color: 'red', name: 'Hibiscus' },
+    },
+  ];
 
-  constructor(private fb: FormBuilder, private service: StationService,private store:Store) {
+  constructor(
+    private fb: FormBuilder,
+    private service: StationService,
+    private store: Store
+  ) {
     this.createStationForm = this.fb.nonNullable.group({
       city: ['', Validators.required],
-      latitude: ['', Validators.required],
-      longitude: ['', Validators.required],
+      latitude: [
+        '',
+        [Validators.required, Validators.min(-90), Validators.max(90)], // Synchronous validators
+      ],
+      longitude: [
+        '',
+        [Validators.required, Validators.min(-180), Validators.max(180)], // Synchronous validators
+      ],
     });
     this.store.dispatch(loadStations());
     console.log('loadStations action dispatched');
-
   }
-  onCreate(){
-    if(this.createStationForm.valid){
-      console.log('send')
-      const station={city:this.createStationForm.controls['city'].value,latitude:this.createStationForm.controls['latitude'].value,longitude:this.createStationForm.controls['longitude'].value};
+  onCreate() {
+    if (this.createStationForm.valid) {
+      console.log('send');
+      const station = {
+        city: this.createStationForm.controls['city'].value,
+        latitude: this.createStationForm.controls['latitude'].value,
+        longitude: this.createStationForm.controls['longitude'].value,
+      };
       this.service.createStation(station).subscribe({
         next: (response) => {
           console.log(response);
@@ -38,5 +64,4 @@ export class StationsComponent {
       });
     }
   }
-
 }

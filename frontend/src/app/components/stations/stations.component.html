@@ -1,6 +1,7 @@
 <div class="position-relative">
   <div
-    class="card border-black position-absolute top-50 start-50 translate-middle-x" >
+    class="card border-black position-absolute top-50 start-50 translate-middle-x"
+  >
     <div class="card-body">
       <form [formGroup]="createStationForm">
         <input
@@ -24,6 +25,12 @@
           aria-label="longitude"
           formControlName="longitude"
         />
+        <select2 [data]="data" [templates]="template" class="form-control">
+          <ng-template #template let-data="data"
+            ><strong>{{ data?.color }}</strong
+            >: {{ data?.name }}</ng-template
+          >
+        </select2>
       </form>
       <button class="btn btn-dark" (click)="onCreate()">Create</button>
     </div>
